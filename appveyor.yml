@@ -18,24 +18,11 @@ before_build:
   # Display minimal restore text
   - cmd: dotnet restore ./MeMBank.Service/MemBank.Service.csproj --verbosity m
 build_script:
-  # output will be in ./src/bin/debug/netcoreapp1.1/publish
   - cmd: dotnet build ./MeMBank.Service/MemBank.Service.csproj
 after_build:
   # For once the build has completed
 test_script:
-  # restore packages for our unit tests
-  # - cmd: dotnet restore ./MemBank.Tests/MemBank.Tests.csproj --verbosity m
-  # # run the unit tests (requires changing into the test directory)
-  # - cmd: cd MemBank.Tests
-  # - cmd: dotnet test
   - OpenCover.Console.exe -target:"dotnet.exe" -targetargs:" test " -register:user -oldStyle -output:OpenCoverResults.xml
-  #- ps: >-
-    # .\src\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -target:"dotnet.exe" -targetargs:" test " -register:user -oldStyle -output:OpenCoverResults.xml
-    # $coveralls = (Resolve-Path "src/packages/coveralls.net.*/tools/csmacnz.coveralls.exe").ToString()
-    
-    # $env:APPVEYOR_BUILD_NUMBER
-    
-    # & $coveralls --opencover -i OpenCoverResults.xml --repoToken $env:COVERALLS_REPO_TOKEN --useRelativePaths --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_BUILD_NUMBER --serviceName appveyor
 after_test:
   - ps: |
       Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
