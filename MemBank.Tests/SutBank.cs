@@ -180,7 +180,7 @@ namespace MemBank.Tests
         }
 
         [Fact]
-        public void IndividualAccountSHouldHaveWithdrawLimitOf500()
+        public void IndividualAccountShouldHaveWithdrawLimitOf500()
         {
             var bank = new Bank("Bank Of Test");
 
@@ -189,6 +189,65 @@ namespace MemBank.Tests
 
             Assert.Equal(bank.accounts.Count, 1);
             Assert.Throws<InvalidOperationException>(()=>bank.Withdraw(1, 600.00M));
+        }
+
+        [Fact]
+        public void CheckingAccountShouldThrowErrorIfLowbalance()
+        {
+            var bank = new Bank("Bank Of Test");
+
+            var status = bank.AddAccount(AccountType.Checking, "Test Owner");
+            bank.Deposit(1, 50.00M);
+
+            Assert.Equal(bank.accounts.Count, 1);
+            Assert.Throws<InvalidOperationException>(()=>bank.Withdraw(1, 600.00M));
+        }
+
+        [Fact]
+        public void WithdrawShouldThrowErrorIfUnableToLocateAccount()
+        {
+            var bank = new Bank("Bank Of Test");
+
+            var status = bank.AddAccount(AccountType.Checking, "Test Owner");
+            bank.Deposit(1, 50.00M);
+
+            Assert.Equal(bank.accounts.Count, 1);
+            Assert.Throws<InvalidOperationException>(()=>bank.Withdraw(2, 600.00M));
+        }
+
+        [Fact]
+        public void DepositShouldThrowErrorIfUnableToLocateAccount()
+        {
+            var bank = new Bank("Bank Of Test");
+
+            var status = bank.AddAccount(AccountType.Checking, "Test Owner");
+            Assert.Throws<InvalidOperationException>(()=>bank.Deposit(2, 50.00M));
+        }
+
+        [Fact]
+        public void BankShouldAllowTransferMoney()
+        {
+            var bank = new Bank("Bank Of Test");
+
+            var status = bank.AddAccount(AccountType.Investment, "Test Owner");
+            status = bank.AddAccount(AccountType.Checking, "Test Owner");
+            bank.Deposit(1, 400.00M);
+
+            bank.Transfer(1, 2, 100.00M);
+            Assert.Equal(bank.GetBalance(1), 300.00M);
+            Assert.Equal(bank.GetBalance(2), 100.00M);
+        }
+
+        [Fact]
+        public void TransferShouldThrowErrorIfInSufficientBalance()
+        {
+            var bank = new Bank("Bank Of Test");
+
+            var status = bank.AddAccount(AccountType.Investment, "Test Owner");
+            status = bank.AddAccount(AccountType.Checking, "Test Owner");
+            bank.Deposit(1, 400.00M);
+
+            Assert.Throws<InvalidOperationException>(()=>bank.Transfer(1, 2, 600.00M));
         }
     }
 }
