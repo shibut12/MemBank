@@ -1,8 +1,8 @@
 
 version: '1.0.{build}'
 environment:
- COVERALLS_REPO_TOKEN:
-    secure: YFp+72psmNuRS8MNmKOA4tNJ4NZitqYv6vbFfjOMvFzksNT/5ugBJrx4bgtfN+5n
+ CODECOV_IO_TOKEN:
+    secure: dGZ4I/2UkD2OYCkSkIn7VBEOtEy/Jd4VbaOBhZ+xTa28CbrkWES1ERffPl+cWd0V
 image: Visual Studio 2017
 branches:
   only:
@@ -37,10 +37,9 @@ test_script:
     
     # & $coveralls --opencover -i OpenCoverResults.xml --repoToken $env:COVERALLS_REPO_TOKEN --useRelativePaths --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_BUILD_NUMBER --serviceName appveyor
 after_test:
-  - ps: >-
-    $coveralls = (Resolve-Path "src/packages/coveralls.net.*/tools/csmacnz.coveralls.exe").ToString()
-    & $coveralls --opencover -i OpenCoverResults.xml --repoToken $env:COVERALLS_REPO_TOKEN --useRelativePaths --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_BUILD_NUMBER --serviceName appveyor
-
+  - ps: |
+      Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
+      bash codecov.sh -f "OpenCoverResults.xml" -t dGZ4I/2UkD2OYCkSkIn7VBEOtEy/Jd4VbaOBhZ+xTa28CbrkWES1ERffPl+cWd0V
 on_finish :
   # any cleanup in here
 deploy: off
