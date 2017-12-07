@@ -1,6 +1,9 @@
 # MEMBANK
 ---
-[![Build Status](https://travis-ci.org/shibut12/MemBank.svg?branch=master)](https://travis-ci.org/shibut12/MemBank)
+#### Cross platform build (Ubuntu 14.04)
+[![Cross platform Build Status](https://travis-ci.org/shibut12/MemBank.svg?branch=master)](https://travis-ci.org/shibut12/MemBank)
+#### Build with Visual studio 2017
+![Visual Studio build status](https://ci.appveyor.com/api/projects/status/vr33idjftiw3fa46/branch/master)
 
 ---
 ### Description
