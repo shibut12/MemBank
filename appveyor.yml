@@ -1,5 +1,8 @@
 
 version: '1.0.{build}'
+environment:
+ COVERALLS_REPO_TOKEN:
+    secure: YFp+72psmNuRS8MNmKOA4tNJ4NZitqYv6vbFfjOMvFzksNT/5ugBJrx4bgtfN+5n
 image: Visual Studio 2017
 branches:
   only:
@@ -21,10 +24,17 @@ after_build:
   # For once the build has completed
 test_script:
   # restore packages for our unit tests
-  - cmd: dotnet restore ./MemBank.Tests/MemBank.Tests.csproj --verbosity m
-  # run the unit tests (requires changing into the test directory)
-  - cmd: cd MemBank.Tests
-  - cmd: dotnet test
+  # - cmd: dotnet restore ./MemBank.Tests/MemBank.Tests.csproj --verbosity m
+  # # run the unit tests (requires changing into the test directory)
+  # - cmd: cd MemBank.Tests
+  # - cmd: dotnet test
+  - ps: >-
+    .\src\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -target:"dotnet.exe" -targetargs:" test " -register:user -oldStyle -output:OpenCoverResults.xml
+    $coveralls = (Resolve-Path "src/packages/coveralls.net.*/tools/csmacnz.coveralls.exe").ToString()
+    
+    $env:APPVEYOR_BUILD_NUMBER
+    
+    & $coveralls --opencover -i OpenCoverResults.xml --repoToken $env:COVERALLS_REPO_TOKEN --useRelativePaths --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_BUILD_NUMBER --serviceName appveyor
 on_finish :
   # any cleanup in here
 deploy: off
