@@ -39,7 +39,7 @@ test_script:
 after_test:
   - ps: |
       Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
-      bash codecov.sh -f "OpenCoverResults.xml" -t dGZ4I/2UkD2OYCkSkIn7VBEOtEy/Jd4VbaOBhZ+xTa28CbrkWES1ERffPl+cWd0V
+      bash codecov.sh -f "OpenCoverResults.xml" -t $env:CODECOV_IO_TOKEN
 on_finish :
   # any cleanup in here
 deploy: off
