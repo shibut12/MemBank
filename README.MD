@@ -4,7 +4,7 @@
 
 ---
 ### Description
-This project implements a in memory bank.
+This project implements an in-memory bank.
 
 ### Objective
 * Create an Object Oriented Program
