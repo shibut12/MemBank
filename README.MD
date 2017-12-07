@@ -20,11 +20,11 @@
 ### Technology stack
 * .Net Core 2.0.2
 * XUnit.Net
- #### Continuous Integration
- * Cross platform build is done on Ubuntu 14.04 using Travis CI
- * Build on Windows is done using Visual studio 2017 on AppVeyor
-   * Code Coverage report is generated using OpenCover
- * Code coverage monitored per build is performed using Codecov.io
+### Continuous Integration
+ * Cross platform build is done on Ubuntu 14.04 using [Travis CI](https://travis-ci.org)
+ * Build on Windows is done using Visual studio 2017 on [AppVeyor](https://www.appveyor.com)
+   * Code Coverage report is generated using [OpenCover](https://github.com/OpenCover/opencover)
+ * Code coverage monitored per build is performed using [codecov.io](https://codecov.io)
 ### How to run
 ```shell
 git clone https://github.com/shibut12/MemBank.git
