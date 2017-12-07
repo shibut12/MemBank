@@ -6,5 +6,6 @@ namespace MemBank.Service
         public string TypeName { get; set; }
         public decimal Balance { get; set; }
         public decimal WithdrawLimit { get; set; }
+        public string Owner { get; set; }
     }
 }
