@@ -16,7 +16,7 @@ before_build:
   - cmd: dotnet restore ./MeMBank.Service/MemBank.Service.csproj --verbosity m
 build_script:
   # output will be in ./src/bin/debug/netcoreapp1.1/publish
-  - cmd: dotnet publish ./src/src.csproj
+  - cmd: dotnet build ./MeMBank.Service/MemBank.Service.csproj
 after_build:
   # For once the build has completed
 test_script:
