@@ -80,7 +80,7 @@ namespace MemBank.Tests
         [Fact]
         public void BankShouldHaveCorporateAccount()
         {
-            var bank = new Bank("Bank Of Test");
+            var bank = new Bank("Bank Of Test"); 
 
             var status = bank.AddAccount(AccountType.Corporate, "Test Owner");
             Assert.True(status);
