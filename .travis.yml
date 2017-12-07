@@ -5,4 +5,5 @@ dotnet: 2.0.0
 script:
  - dotnet restore
  - dotnet build
- - dotnet test /MemBank.Tests/MemBank.Tests.csproj
+ - cd MemBank.Tests
+ - dotnet test
