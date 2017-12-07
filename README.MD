@@ -4,7 +4,7 @@
 #### Build and Test coverage status
 [![Cross platform Build Status](https://travis-ci.org/shibut12/MemBank.svg?branch=master)](https://travis-ci.org/shibut12/MemBank) [![Visual Studio build status](https://ci.appveyor.com/api/projects/status/vr33idjftiw3fa46/branch/master)](https://ci.appveyor.com/project/shibut12/membank/branch/master) [![codecov](https://codecov.io/gh/shibut12/MemBank/branch/master/graph/badge.svg)](https://codecov.io/gh/shibut12/MemBank)
 
-##### Plug: [Link to persoel blog CodewithDot.net](http://www.codewithdot.net)
+##### Plug: [Link to my blog - CodewithDot.net](http://www.codewithdot.net)
 ### Objective
 * Create an Object Oriented Program
 * Utilize Design patterns
